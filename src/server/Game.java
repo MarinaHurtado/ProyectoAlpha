@@ -55,4 +55,10 @@ public class Game {
         return false;
     }
     
+    boolean reset(){
+        round = 0;
+        players.clear();
+        return false;
+    }
+    
 }
