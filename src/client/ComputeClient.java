@@ -33,9 +33,7 @@ public class ComputeClient {
         Registry registry;
         try {
             registry = LocateRegistry.getRegistry("localhost"); // server's ip address
-            Compute comp = (Compute) registry.lookup(name);
-            System.out.println("2^5 = " + comp.power(2,5, user));
-            System.out.println("3*3 = " + comp.square(3));
+            GameMethods comp = (GameMethods) registry.lookup(name);
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(ComputeClient.class.getName()).log(Level.SEVERE, null, ex);
         }

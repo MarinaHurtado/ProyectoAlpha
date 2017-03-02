@@ -14,19 +14,15 @@ import java.util.Random;
  */
 public class Game {
     
-    private static HashMap<String,Integer> players = new HashMap(); //Key-Username, Value-Score
-    private static int round=0;
-    private static int winScore=3;
-    private static int monster = 1;
+    HashMap<String,Integer> players = new HashMap(); //Key-Username, Value-Score
+    HashMap<String,Boolean> connected = new HashMap(); //Key-Username, Connected
+    int round=0;
+    int winScore=3;
+    int monster = 1;
 
-    public static int getRound() {
-        return round;
+    public Game() {
     }
 
-    public static int getMonster() {
-        return monster;
-    }
-    
     boolean addPlayer(String username){
         if(!players.containsKey(username)){
             players.put(username, 0);

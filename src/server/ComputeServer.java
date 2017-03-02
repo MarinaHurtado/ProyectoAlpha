@@ -5,7 +5,7 @@
  */
 package server;
 
-import interfaces.Compute;
+import interfaces.GameMethods;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -17,7 +17,9 @@ import interfaces.Credential;
  *
  * @author sdist
  */
-public class ComputeServer implements Compute {
+public class ComputeServer implements GameMethods {
+    
+    Game game = new Game();
     
     public static void main(String[] args) {
         
@@ -27,13 +29,13 @@ public class ComputeServer implements Compute {
             System.setSecurityManager(new SecurityManager());
         }
         
-        String name = "Compute";
+        String name = "GameServer";
         
         try {
             LocateRegistry.createRegistry(1099);
 
             ComputeServer engine = new ComputeServer();
-            Compute stub = (Compute) UnicastRemoteObject.exportObject(engine, 0);
+            GameMethods stub = (GameMethods) UnicastRemoteObject.exportObject(engine, 0);
             Registry registry = LocateRegistry.getRegistry();
             registry.rebind(name, stub);
             
@@ -47,19 +49,16 @@ public class ComputeServer implements Compute {
     public ComputeServer() throws RemoteException{
         super();
     }
-    
-    @Override
-    public double square(int number) throws RemoteException {
-        return number*number;
-    }
 
     @Override
-    public double power(int num1, int num2, Credential cred) throws RemoteException {
-        Credential crede = new Credential();
-        if (crede.getNombre().equals(cred.getNombre()))
-            return Math.pow(num1,num2);
-        else
-            return 0;
-    }
-    
+    public boolean logIn(String username) throws RemoteException {        
+        if (game.players.get(username) == null)
+            game.addPlayer(username);
+        if (game.connected.get(username) == null || !game.connected.get(username)){
+            //Connect
+            game.connected.put(username, true);
+            return true;
+        }        
+        return false;        
+    }    
 }

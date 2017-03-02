@@ -5,6 +5,16 @@
  */
 package client;
 
+import interfaces.Credential;
+import interfaces.GameMethods;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author M
@@ -45,6 +55,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         jButton1.setText("¡Comenzar!");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +101,42 @@ public class Login extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        if(jTextField1.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Please try again.", "Empty field", 2);
+            return;
+        }
+        
+        System.setProperty("java.security.policy","file:\\C:\\Users\\M\\Documents\\NetBeansProjects\\ProyectoAlfa\\src\\client\\client.policy");
+
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
+        String name = "GameServer";
+
+        Registry registry;
+        try {
+            registry = LocateRegistry.getRegistry("localhost"); // server's ip address
+            GameMethods gameManager = (GameMethods) registry.lookup(name);
+            
+            if (gameManager.logIn(jTextField1.getText())) {
+                //Inicia la sig ventana
+                System.out.println("VENTANA");
+                super.dispose();
+            } else {
+                jTextField1.setText("");
+                JOptionPane.showMessageDialog(rootPane, "Username already connected.", "Error", 2);
+            }
+            
+            
+            
+        } catch (RemoteException | NotBoundException ex) {
+            Logger.getLogger(ComputeClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

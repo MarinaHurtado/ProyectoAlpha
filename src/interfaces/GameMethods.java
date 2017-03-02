@@ -12,12 +12,9 @@ import java.rmi.RemoteException;
  *
  * @author sdist
  */
-public interface Compute extends Remote{
+public interface GameMethods extends Remote{
     
-    // Calculate the square of a number
-        public double square ( int number ) throws RemoteException;
-
-    // Calculate the power of a number
-        public double power ( int num1, int num2, Credential cred) throws RemoteException;
+    // Try to log in player.
+        public boolean logIn(String username) throws RemoteException;
     
 }
