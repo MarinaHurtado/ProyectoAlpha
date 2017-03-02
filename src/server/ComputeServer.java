@@ -61,4 +61,9 @@ public class ComputeServer implements GameMethods {
         }        
         return false;        
     }    
+
+    @Override
+    public void Exit(String username) throws RemoteException {
+        game.connected.put(username, false);
+    }
 }

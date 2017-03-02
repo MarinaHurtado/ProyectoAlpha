@@ -121,10 +121,13 @@ public class Login extends javax.swing.JFrame {
         try {
             registry = LocateRegistry.getRegistry("localhost"); // server's ip address
             GameMethods gameManager = (GameMethods) registry.lookup(name);
-            
-            if (gameManager.logIn(jTextField1.getText())) {
+            String txt = jTextField1.getText();
+            if (gameManager.logIn(txt)) {
                 //Inicia la sig ventana
                 System.out.println("VENTANA");
+                Mole ventana = new Mole();
+                ventana.username = txt;
+                ventana.setVisible(true);
                 super.dispose();
             } else {
                 jTextField1.setText("");

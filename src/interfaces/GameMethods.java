@@ -16,5 +16,6 @@ public interface GameMethods extends Remote{
     
     // Try to log in player.
         public boolean logIn(String username) throws RemoteException;
+        public void Exit(String username) throws RemoteException;
     
 }
