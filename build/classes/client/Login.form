@@ -65,12 +65,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xa1;Bienvenido a nuestro juego!"/>
+        <Property name="text" type="java.lang.String" value="Welcome!"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingresa tu nombre de usuario:"/>
+        <Property name="text" type="java.lang.String" value="Enter your username:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">

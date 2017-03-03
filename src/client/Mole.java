@@ -159,7 +159,7 @@ public class Mole extends javax.swing.JFrame {
             ventana.setVisible(true);
             super.dispose();
         } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(ComputeClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btmExitActionPerformed
 
@@ -188,14 +188,17 @@ public class Mole extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Mole.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        //</editor-fold>       
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Mole().setVisible(true);
+                new Mole().setVisible(true);                
             }
         });
+        
+        System.out.println("MAMACUSA");
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -211,4 +214,9 @@ public class Mole extends javax.swing.JFrame {
     private javax.swing.JButton mole8;
     private javax.swing.JButton mole9;
     // End of variables declaration//GEN-END:variables
+ 
+    /**
+     *
+     */
+        public javax.swing.JButton btns[] = {mole1,mole2,mole3,mole4,mole5,mole6,mole7,mole8,mole9}; 
 }

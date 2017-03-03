@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import client.Connection;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -17,5 +18,6 @@ public interface GameMethods extends Remote{
     // Try to log in player.
         public boolean logIn(String username) throws RemoteException;
         public void Exit(String username) throws RemoteException;
-    
+        public Connection getSettings() throws RemoteException;
+        
 }

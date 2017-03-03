@@ -5,8 +5,7 @@
  */
 package client;
 
-import interfaces.Credential;
-import interfaces.GameMethods;
+import interfaces.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -44,9 +43,9 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("¡Bienvenido a nuestro juego!");
+        jLabel1.setText("Welcome!");
 
-        jLabel2.setText("Ingresa tu nombre de usuario:");
+        jLabel2.setText("Enter your username:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,7 +136,7 @@ public class Login extends javax.swing.JFrame {
             
             
         } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(ComputeClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
