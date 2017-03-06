@@ -123,10 +123,14 @@ public class Login extends javax.swing.JFrame {
             String txt = jTextField1.getText();
             if (gameManager.logIn(txt)) {
                 //Inicia la sig ventana
-                System.out.println("VENTANA");
+                System.out.println("Inicio de sesión de usuario");
+                Connection con = gameManager.getSettings();
+                System.out.println(con.broadcastAddress +" Login");
                 Mole ventana = new Mole();
                 ventana.username = txt;
+                ventana.con = con;
                 ventana.setVisible(true);
+                ventana.MoleStart();
                 super.dispose();
             } else {
                 jTextField1.setText("");

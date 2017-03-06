@@ -55,7 +55,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,10 +69,10 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mole1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="mole2" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="mole3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mole1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -92,7 +92,7 @@
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="btmExit" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,6 +112,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole2">
       <Properties>
@@ -119,6 +122,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole3">
       <Properties>
@@ -126,6 +132,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole4">
       <Properties>
@@ -133,6 +142,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole5">
       <Properties>
@@ -140,6 +152,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole5ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole6">
       <Properties>
@@ -147,6 +162,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole6ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole7">
       <Properties>
@@ -154,6 +172,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole7ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole8">
       <Properties>
@@ -161,6 +182,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole8ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="mole9">
       <Properties>
@@ -168,6 +192,9 @@
           <Image iconType="3" name="/client/hole.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mole9ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btmExit">
       <Properties>

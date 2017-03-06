@@ -69,12 +69,26 @@ public class GameServer implements GameMethods{
             moleShoutOut = new MulticastSocket(broadcastPort);
             moleShoutOut.joinGroup(gameRoom); 
             System.out.println("Messages' TTL (Time-To-Live): "+ moleShoutOut.getTimeToLive());
-            
+            GameReceiver gR = new GameReceiver(game, tcpPort);
+            gR.start();
+            String toSend;
             while (true) {
-                monster = game.newMonster();
-                byte [] m = monster.toString().getBytes();
+                
+                if (!game.w) {
+                    game.newRound();
+                    monster = game.newMonster();
+                    toSend = "round ".concat(((Integer)(game.round)).toString()).concat(" ").concat(monster.toString());
+                                      
+                } else {
+                    toSend = "winner ".concat(game.winner);                    
+                    game.reset();
+                }
+                
+                byte [] m = toSend.getBytes();
                 DatagramPacket messageOut = new DatagramPacket(m, m.length, gameRoom, broadcastPort);
                 moleShoutOut.send(messageOut);
+                Thread.sleep(3000);
+                
             }          
 
         }
@@ -83,6 +97,8 @@ public class GameServer implements GameMethods{
         }
         catch (IOException e){
             System.out.println("IO: " + e.getMessage());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             if(moleShoutOut != null) moleShoutOut.close();
@@ -113,6 +129,7 @@ public class GameServer implements GameMethods{
 
     @Override
     public Connection getSettings() throws RemoteException {
-        return new Connection(broadcastAddress, broadcastPort, tcpAddress, tcpPort);
+        Connection con = new Connection(broadcastAddress, broadcastPort, tcpAddress, tcpPort);
+        return con;
     }
 }

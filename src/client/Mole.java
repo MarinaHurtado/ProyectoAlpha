@@ -6,6 +6,8 @@
 package client;
 
 import interfaces.GameMethods;
+import java.net.*;
+import java.io.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -13,6 +15,7 @@ import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import server.TCP;
 
 /**
  *
@@ -21,11 +24,31 @@ import javax.swing.*;
 public class Mole extends javax.swing.JFrame {
 
     String username;
+    Connection con;
+    javax.swing.JButton btns[] = new javax.swing.JButton[9];
+    MoleReceiver moleR;
+    ObjectInputStream in;
+    ObjectOutputStream out;
     /**
      * Creates new form Mole
      */
     public Mole() {
         initComponents();
+    }
+    
+    public void MoleStart() {
+        btns[0] = mole1;
+        btns[1] = mole2;
+        btns[2] = mole3;
+        btns[3] = mole4;
+        btns[4] = mole5;
+        btns[5] = mole6;
+        btns[6] = mole7;
+        btns[7] = mole8;
+        btns[8] = mole9;
+        
+        moleR = new MoleReceiver(con, btns, this);
+        moleR.start();
     }
 
     /**
@@ -56,22 +79,67 @@ public class Mole extends javax.swing.JFrame {
         jLabel1.setText("Whack a mole");
 
         mole1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole1ActionPerformed(evt);
+            }
+        });
 
         mole2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole2ActionPerformed(evt);
+            }
+        });
 
         mole3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole3ActionPerformed(evt);
+            }
+        });
 
         mole4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole4ActionPerformed(evt);
+            }
+        });
 
         mole5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole5ActionPerformed(evt);
+            }
+        });
 
         mole6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole6ActionPerformed(evt);
+            }
+        });
 
         mole7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole7ActionPerformed(evt);
+            }
+        });
 
         mole8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole8ActionPerformed(evt);
+            }
+        });
 
         mole9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/hole.png"))); // NOI18N
+        mole9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mole9ActionPerformed(evt);
+            }
+        });
 
         btmExit.setText("Exit");
         btmExit.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +175,7 @@ public class Mole extends javax.swing.JFrame {
                             .addComponent(mole3)
                             .addComponent(mole6)
                             .addComponent(mole9))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,10 +187,10 @@ public class Mole extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mole1)
-                                    .addComponent(mole2)
-                                    .addComponent(mole3))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(mole2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(mole3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(mole1))
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(mole5)
@@ -135,33 +203,51 @@ public class Mole extends javax.swing.JFrame {
                     .addComponent(mole7))
                 .addGap(30, 30, 30)
                 .addComponent(btmExit)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmExitActionPerformed
-        System.setProperty("java.security.policy","file:\\C:\\Users\\M\\Documents\\NetBeansProjects\\ProyectoAlfa\\src\\client\\client.policy");
-
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-
-        String name = "GameServer";
-
-        Registry registry;
-        try {
-            registry = LocateRegistry.getRegistry("localhost"); // server's ip address
-            GameMethods gameManager = (GameMethods) registry.lookup(name);
-            gameManager.Exit(username);
-            Login ventana = new Login();
-            ventana.setVisible(true);
-            super.dispose();
-        } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        exit();
     }//GEN-LAST:event_btmExitActionPerformed
+
+    private void mole1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole1ActionPerformed
+        sendTCP(0);
+    }//GEN-LAST:event_mole1ActionPerformed
+
+    private void mole2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole2ActionPerformed
+        sendTCP(1);
+    }//GEN-LAST:event_mole2ActionPerformed
+
+    private void mole3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole3ActionPerformed
+        sendTCP(2);
+    }//GEN-LAST:event_mole3ActionPerformed
+
+    private void mole4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole4ActionPerformed
+        sendTCP(3);
+    }//GEN-LAST:event_mole4ActionPerformed
+
+    private void mole5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole5ActionPerformed
+        sendTCP(4);
+    }//GEN-LAST:event_mole5ActionPerformed
+
+    private void mole6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole6ActionPerformed
+        sendTCP(5);
+    }//GEN-LAST:event_mole6ActionPerformed
+
+    private void mole7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole7ActionPerformed
+        sendTCP(6);
+    }//GEN-LAST:event_mole7ActionPerformed
+
+    private void mole8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole8ActionPerformed
+        sendTCP(7);
+    }//GEN-LAST:event_mole8ActionPerformed
+
+    private void mole9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mole9ActionPerformed
+        sendTCP(8);
+    }//GEN-LAST:event_mole9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,12 +279,11 @@ public class Mole extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Mole().setVisible(true);                
+                new Mole().setVisible(true);   
             }
         });
         
-        System.out.println("MAMACUSA");
-        
+            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,9 +299,65 @@ public class Mole extends javax.swing.JFrame {
     private javax.swing.JButton mole8;
     private javax.swing.JButton mole9;
     // End of variables declaration//GEN-END:variables
- 
-    /**
-     *
-     */
-        public javax.swing.JButton btns[] = {mole1,mole2,mole3,mole4,mole5,mole6,mole7,mole8,mole9}; 
+
+    private void sendTCP(int monster) {
+
+        Socket s = null;
+        try {
+
+            s = new Socket(con.tcpAddress, con.tcpPort);	
+
+            in = new ObjectInputStream( s.getInputStream());
+            out = new ObjectOutputStream( s.getOutputStream());
+            
+            TCP message = new TCP(MoleReceiver.round, monster, username);
+
+            out.writeObject(message);  	// UTF is a string encoding 
+            System.out.println("Mandando respuesta");
+            
+            TCP r = (TCP) in.readObject();	      
+            
+
+        } 
+        catch (UnknownHostException e) {
+            System.out.println("Sock:"+e.getMessage()); 
+        }
+        catch (EOFException e) {
+            System.out.println("EOF:"+e.getMessage());
+        } 
+        catch (IOException e) {
+            System.out.println("IO:"+e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Mole.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if(s!=null) 
+                try {
+                    s.close();
+                } catch (IOException e){
+                System.out.println("close:"+e.getMessage());}
+        }
+    }
+
+    public void exit() {
+        System.setProperty("java.security.policy","file:\\C:\\Users\\M\\Documents\\NetBeansProjects\\ProyectoAlfa\\src\\client\\client.policy");
+
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
+        String name = "GameServer";
+        
+        moleR.stop();
+        Registry registry;
+        try {
+            registry = LocateRegistry.getRegistry("localhost"); // server's ip address
+            GameMethods gameManager = (GameMethods) registry.lookup(name);
+            gameManager.Exit(username);
+            Login ventana = new Login();
+            ventana.setVisible(true);
+            super.dispose();
+        } catch (RemoteException | NotBoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
+    
 }
